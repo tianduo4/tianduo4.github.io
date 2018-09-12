@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2018-09-11T14:29:06.443Z</updated>
+  <updated>2018-09-12T15:59:49.543Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -17,39 +17,26 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>Hello World</title>
-    <link href="http://yoursite.com/2018/09/11/hello-world/"/>
-    <id>http://yoursite.com/2018/09/11/hello-world/</id>
-    <published>2018-09-11T14:29:06.442Z</published>
-    <updated>2018-09-11T14:29:06.443Z</updated>
+    <title>MySQL笔记</title>
+    <link href="http://yoursite.com/2018/09/12/MySQL%E7%AC%94%E8%AE%B0/"/>
+    <id>http://yoursite.com/2018/09/12/MySQL笔记/</id>
+    <published>2018-09-12T15:57:23.000Z</published>
+    <updated>2018-09-12T15:59:49.543Z</updated>
     
-    <content type="html"><![CDATA[<p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p><h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p><h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p><h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p><h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="noopener">Deployment</a></p>]]></content>
+    <content type="html"><![CDATA[<p>在Mysql的InnoDB中，有两种类型的B+树索引，一种称为聚簇索引，一种称为二级索引。</p><p>聚簇索引</p><p>索引和数据存储在一块（ 都存储在同一个B*tree 中）。<br>一般主键索引都是聚餐索引</p><p>Mysql中InnoDB引擎的主键索引为聚簇索引，MyISAM存储引擎采用非聚集索引<br>非聚簇索引</p><p>索引数据和存储数据是分离的。</p><p>二级索引（辅助索引）</p><p>二级索引存储的是记录的主键，而不是数据存储的地址。<br>以Mysql的InnoDB为例<br>主键是聚集索引<br>唯一索引、普通索引、前缀索引等都是二级索引（辅助索引）</p><p>innodb数据表文件：</p><p>从物理意义上来讲，InnoDB表由共享表空间、日志文件组（redo文件组）、表结构定义文件组成。若将innodb_file_per_table设置为on，则系统将为每一个表单独的生成一个table_name.ibd的文件（独占表空间），在此文件中，存储与该表相关的数据、索引、表的内部数据字典信息。表结构文件则以.frm结尾，这与存储引擎无关。<br>如：user.ibd，user.frm</p><p>MyISAM数据库表文件：</p><p>MyISAM表是独立于操作系统的，这说明可以轻松地将其从Windows服务器移植到Linux服务器；每当我们建立一个MyISAM引擎的表时，就会在本地磁盘上建立三个文件，文件名就是表明。例如，我建立了一个MyISAM引擎的test表，那么就会生成以下三个文件：</p><p>test.frm，存储表定义；<br>test.MYD，存储数据；<br>test.MYI，存储索引。</p><p>innodb事务隔离</p><p>mysql的四种隔离级别：<br>未提交读、已提交读，可重复读（默认），可序列换</p><p>InnoDB的行锁模式及加锁方法</p><p>(一).行锁模式</p><p>1.共享锁(S锁):</p><p>对同一行数据都可以共享一把锁,但是没有获得锁的事务只可以读,不可以修改</p><p>2.排它锁(X锁)</p><p>对同一行数据,获得该锁的事务可读可写,未获得锁的事务不可读也不可写.</p><p>另外，为了允许行锁和表锁共存，实现多粒度锁机制，InnoDB还有两种内部使用的意向锁（Intention Locks），这两种意向锁都是表锁。</p><p>3.意向共享锁（IS）：事务打算给数据行加行共享锁，事务在给一个数据行加共享锁前必须先取得该表的IS锁。</p><p>4.意向排他锁（IX）：事务打算给数据行加行排他锁，事务在给一个数据行加排他锁前必须先取得该表的IX锁。</p>]]></content>
     
     <summary type="html">
     
       
       
-        &lt;p&gt;Welcome to &lt;a href=&quot;https://hexo.io/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;Hexo&lt;/a&gt;! This is your very first post. Check &lt;a href=&quot;https://hexo.
+        &lt;p&gt;在Mysql的InnoDB中，有两种类型的B+树索引，一种称为聚簇索引，一种称为二级索引。&lt;/p&gt;
+&lt;p&gt;聚簇索引&lt;/p&gt;
+&lt;p&gt;索引和数据存储在一块（ 都存储在同一个B*tree 中）。&lt;br&gt;一般主键索引都是聚餐索引&lt;/p&gt;
+&lt;p&gt;Mysql中InnoDB引擎的主键索引
       
     
     </summary>
     
-    
-  </entry>
-  
-  <entry>
-    <title>如何使用HEXO搭建个人博客</title>
-    <link href="http://yoursite.com/2018/04/24/%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8HEXO%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/"/>
-    <id>http://yoursite.com/2018/04/24/如何使用HEXO搭建个人博客/</id>
-    <published>2018-04-24T02:28:39.000Z</published>
-    <updated>2018-09-11T14:29:06.938Z</updated>
-    
-    <summary type="html">
-    
-    </summary>
-    
-    
-      <category term="hexo" scheme="http://yoursite.com/tags/hexo/"/>
     
   </entry>
   
